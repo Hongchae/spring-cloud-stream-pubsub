@@ -8,5 +8,5 @@ import java.util.function.Consumer;
 public interface PubSub {
     void publish(Message<?> message);
 
-    void subscribe(Consumer<PubSubMessage> callback);
+    void subscribe(Consumer<Message<?>> callback);
 }

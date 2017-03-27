@@ -1,25 +1,35 @@
 package io.github.devneoguri;
 
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+
 import java.io.Serializable;
 
-public class PubSubMessage implements Serializable {
+public class PubSubMessage implements Message {
+    private MessageHeaders headers;
+    private String payload;
 
-    public PubSubMessage(String content) {
-        this.content = content;
+    public PubSubMessage(MessageHeaders headers, String payload) {
+        this.headers = headers;
+        this.payload = payload;
     }
 
-    private String content;
-
-    public String getContent() {
-        return content;
+    public PubSubMessage(String payload) {
+        this.payload = payload;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    @Override
+    public Object getPayload() {
+        return payload;
+    }
+
+    @Override
+    public MessageHeaders getHeaders() {
+        return headers;
     }
 
     @Override
     public String toString() {
-        return "[" + content + "]";
+        return "[" + payload + "]";
     }
 }

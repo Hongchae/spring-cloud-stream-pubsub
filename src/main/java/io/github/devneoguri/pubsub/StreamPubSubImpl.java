@@ -18,7 +18,7 @@ public class StreamPubSubImpl implements PubSub {
 
     private Processor processor;
 
-    private List<Consumer<PubSubMessage>> callbackList = new ArrayList<>();
+    private List<Consumer<Message<?>>> callbackList = new ArrayList<>();
 
     public void setProcessor(Processor processor) {
         this.processor = processor;
@@ -31,12 +31,12 @@ public class StreamPubSubImpl implements PubSub {
     }
 
     @Override
-    public void subscribe(Consumer<PubSubMessage> callback) {
+    public void subscribe(Consumer<Message<?>> callback) {
         this.callbackList.add(callback);
     }
 
     @StreamListener(Processor.INPUT)
-    public void listen(PubSubMessage message) {
+    public void listen(Message<?> message) {
         logger.info("< message received: {}", message);
         callbackList.forEach(c -> c.accept(message));
     }
